@@ -27,10 +27,10 @@ class _BottomNavigationViewState extends State<BottomNavigationView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Constants.backgroundColor,
-      body: _pages[_currentPage],
+      body: SafeArea(child: _pages[_currentPage]),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(10),
-        color: Colors.black87,
+        color: Colors.grey[900],
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
