@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/constants.dart';
 import 'package:netflix_clone/data.dart';
+import 'package:netflix_clone/view/movies_view.dart';
+import 'package:netflix_clone/view/my_list_view.dart';
+import 'package:netflix_clone/view/tv_shows_view.dart';
 import 'package:netflix_clone/widget/bullet.dart';
 import 'package:netflix_clone/widget/movie_widget.dart';
 
@@ -21,13 +24,20 @@ class _HomeViewState extends State<HomeView> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text('TV Shows',
-                style: TextStyle(color: Constants.textColorHighlight, fontWeight: FontWeight.w400,letterSpacing: 1.5, fontSize: 18),),
-              Text('Movies',
-                style: TextStyle(color: Constants.textColorHighlight, fontWeight: FontWeight.w400,letterSpacing: 1.5, fontSize: 18),),
-              Text('My List',
-                style: TextStyle(color: Constants.textColorHighlight, fontWeight: FontWeight.w400,letterSpacing: 1.5, fontSize: 18),),
-
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>TvShowsView()));
+                },
+                child: navWidget('TV Shows'),
+              ),
+              InkWell(
+                onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>MoviesView())),
+                child: navWidget('Movies'),
+              ),
+              InkWell(
+                onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>MyListView())),
+                child: navWidget('My List'),
+              ),
             ],
           ),
         ),
@@ -36,59 +46,80 @@ class _HomeViewState extends State<HomeView> {
           Column(
             children: [
               SizedBox(height: Constants.height,),
-              Image.asset('assets/queen.webp'),
-
-              SizedBox(height: Constants.height,),
-
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                spacing: 10,
+              Stack(
+                alignment: Alignment.center,
                 children: [
-                  Text('Heartfelt', style: TextStyle(fontSize: 12, color: Constants.textColorHighlight),),
-                  Bullet(color: Colors.pink,size: Size(4, 4),),
-                  Text('Emotional', style: TextStyle(fontSize: 12, color: Constants.textColorHighlight),),
-                  Bullet(color: Colors.pink,size: Size(4, 4),),
-                  Text('Comedy', style: TextStyle(fontSize: 12, color: Constants.textColorHighlight),),
-                  Bullet(color: Colors.pink,size: Size(4, 4),),
-                  Text('Drama', style: TextStyle(fontSize: 12, color: Constants.textColorHighlight),),
-                  Bullet(color: Colors.pink,size: Size(4, 4),),
-                  Text('Breakup', style: TextStyle(fontSize: 12, color: Constants.textColorHighlight),),
+                  Image.asset('assets/aquaman.jpg', height: MediaQuery.of(context).size.height*0.65,fit: BoxFit.contain,),
+                  Container(
+                    height: MediaQuery.of(context).size.height*0.65,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.transparent, Colors.black87],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        tileMode: TileMode.repeated
+                      )
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 2,
+                    child: Column(
+                      children: [
+                        Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          spacing: 10,
+                          children: [
+                            Text('Heartfelt', style: TextStyle(fontSize: 12, color: Constants.textColorHighlight),),
+                            Bullet(color: Colors.pink,size: Size(4, 4),),
+                            Text('Emotional', style: TextStyle(fontSize: 12, color: Constants.textColorHighlight),),
+                            Bullet(color: Colors.pink,size: Size(4, 4),),
+                            Text('Comedy', style: TextStyle(fontSize: 12, color: Constants.textColorHighlight),),
+                            Bullet(color: Colors.pink,size: Size(4, 4),),
+                            Text('Drama', style: TextStyle(fontSize: 12, color: Constants.textColorHighlight),),
+                            Bullet(color: Colors.pink,size: Size(4, 4),),
+                            Text('Breakup', style: TextStyle(fontSize: 12, color: Constants.textColorHighlight),),
+                          ],
+                        ),
+
+                        SizedBox(height: Constants.height,),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.add, color: Colors.white,),
+                                Text('My List', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),)
+                              ],
+                            ),
+                            SizedBox(width: 50,),
+                            FlatButton.icon(
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(2)
+                              ),
+                              color: Colors.white,
+                              onPressed: (){},
+                              icon: Icon(Icons.info_outline),
+                              label: Text('Info', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                            ),
+                            SizedBox(width: 50,),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.play_arrow, color: Colors.white,),
+                                Text('Play', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),)
+                              ],
+                            ),
+
+                          ],
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
 
-              SizedBox(height: Constants.height,),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.add, color: Colors.white,),
-                      Text('My List', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),)
-                    ],
-                  ),
-                  SizedBox(width: 50,),
-                  FlatButton.icon(
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2)
-                    ),
-                    color: Colors.white,
-                    onPressed: (){},
-                    icon: Icon(Icons.info_outline),
-                    label: Text('Info', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-                  ),
-                  SizedBox(width: 50,),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.play_arrow, color: Colors.white,),
-                      Text('Play', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),)
-                    ],
-                  ),
-
-                ],
-              )
             ],
           )
         ],),),
@@ -154,6 +185,17 @@ class _HomeViewState extends State<HomeView> {
 
         ]),),
       ],
+    );
+  }
+
+  Widget navWidget(String title) {
+    return Hero(
+      tag: title,
+      child: Material(
+        color: Colors.transparent,
+        child: Text(title,
+          style: TextStyle(color: Constants.textColorHighlight, fontWeight: FontWeight.w400,letterSpacing: 1.5, fontSize: 16),),
+      ),
     );
   }
 }
